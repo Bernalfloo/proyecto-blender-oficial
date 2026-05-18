@@ -1,0 +1,536 @@
+/* ==========================================================================
+   Variables y Configuración Base
+   ========================================================================== */
+:root {
+    /* Paleta de colores */
+    --bg-color: #050505; /* Negro casi puro */
+    --surface-color: #0a0a0a; /* Gris extremadamente oscuro para tarjetas */
+    --border-color: #1a1a1a;
+    
+    --text-main: #f0f0f0;
+    --text-muted: #888888;
+    
+    /* Acentos Neón Rojo */
+    --neon-red: #ff003c;
+    --neon-red-dim: rgba(255, 0, 60, 0.2);
+    --neon-red-glow: 0 0 10px rgba(255, 0, 60, 0.6), 0 0 20px rgba(255, 0, 60, 0.2);
+    
+    /* Tipografía */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Animaciones */
+    --transition-speed: 0.3s;
+}
+
+/* ==========================================================================
+   Reseteo Global
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.9)), url('assets/fondo_angel_caido.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Utilidades Globales
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Aplicación del acento rojo brillante a partes de texto */
+span {
+    color: var(--neon-red);
+    text-shadow: var(--neon-red-glow);
+}
+
+.section {
+    padding: 8rem 0 4rem;
+}
+
+/* Títulos de sección con línea decorativa futurista */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100px;
+    height: 1px;
+    background-color: var(--neon-red);
+    box-shadow: 0 0 10px var(--neon-red);
+}
+
+/* ==========================================================================
+   1. Header y Navegación
+   ========================================================================== */
+.header {
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Foto de Perfil */
+.avatar-img {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--neon-red);
+    box-shadow: 0 0 15px var(--neon-red-dim);
+    transition: all var(--transition-speed);
+}
+
+.avatar-img:hover {
+    box-shadow: var(--neon-red-glow);
+    transform: scale(1.05);
+}
+
+.user-name {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.main-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color var(--transition-speed), text-shadow var(--transition-speed);
+}
+
+.main-nav a:hover {
+    color: var(--neon-red);
+    text-shadow: var(--neon-red-glow);
+}
+
+/* ==========================================================================
+   2. Sobre Mí
+   ========================================================================== */
+.intro-text {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 800px;
+}
+
+/* Interacciones de texto en Sobre Mi */
+.interactive-text p {
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.interactive-text p:hover {
+    background: rgba(255, 0, 60, 0.03);
+    border-color: rgba(255, 0, 60, 0.2);
+    transform: translateX(15px);
+    box-shadow: -5px 0 20px rgba(255, 0, 60, 0.1);
+}
+
+.interactive-text p::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--neon-red);
+    transform: scaleY(0);
+    transition: transform 0.4s ease;
+    transform-origin: bottom;
+}
+
+.interactive-text p:hover::before {
+    transform: scaleY(1);
+    box-shadow: 0 0 10px var(--neon-red);
+}
+
+/* Animaciones de Scroll */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Contenedor del video flotante */
+.floating-video-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 280px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid var(--neon-red);
+    box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
+    background: #000;
+    overflow: hidden;
+}
+
+.floating-video-wrapper video {
+    width: 100%;
+    display: block;
+    outline: none;
+}
+
+.floating-video-wrapper:hover {
+    box-shadow: 0 0 25px rgba(255, 0, 60, 0.9);
+    border-color: #fff;
+}
+
+/* ==========================================================================
+   3. Habilidades
+   ========================================================================== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-item {
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all var(--transition-speed);
+    background: var(--surface-color);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.skill-item.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efecto de ratón (Glow interactivo) */
+.skill-item::before {
+    content: "";
+    position: absolute;
+    top: var(--mouse-y);
+    left: var(--mouse-x);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255,0,60,0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s, width 0.3s, height 0.3s;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Efecto Hover Quirúrgico */
+.skill-item:hover {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 15px var(--neon-red-dim), inset 0 0 10px var(--neon-red-dim);
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+.skill-item:hover::before {
+    width: 250px;
+    height: 250px;
+    opacity: 1;
+}
+
+/* ==========================================================================
+   4. Proyectos
+   ========================================================================== */
+.projects-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    transition: all var(--transition-speed);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.project-card.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Resplandor interactivo del ratón */
+.project-card::after {
+    content: "";
+    position: absolute;
+    top: var(--mouse-y);
+    left: var(--mouse-x);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255,0,60,0.1) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s, width 0.3s, height 0.3s;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.project-card:hover::after {
+    width: 400px;
+    height: 400px;
+    opacity: 1;
+}
+
+.project-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Línea superior animada al hacer hover */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--neon-red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-speed);
+}
+
+.project-card:hover {
+    border-color: #333;
+}
+
+.project-card:hover::before {
+    transform: scaleX(1);
+    box-shadow: 0 0 10px var(--neon-red);
+}
+
+.project-content {
+    padding: 2rem;
+    flex-grow: 1;
+}
+
+.project-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.project-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Configuración especial para el proyecto de Rive */
+.rive-highlight {
+    grid-column: 1 / -1; /* Ocupa todo el ancho disponible */
+    border-color: rgba(255, 0, 60, 0.3); /* Borde sutilmente rojo por defecto */
+}
+
+.rive-placeholder {
+    width: 100%;
+    height: 350px;
+    border: 1px dashed var(--neon-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 0, 60, 0.03);
+    font-family: var(--font-heading);
+    color: var(--neon-red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    box-shadow: inset 0 0 30px rgba(255, 0, 60, 0.05);
+    transition: all var(--transition-speed);
+}
+
+.rive-placeholder:hover {
+    background: rgba(255, 0, 60, 0.08);
+}
+
+/* ==========================================================================
+   5. Footer y Contacto
+   ========================================================================== */
+.footer {
+    border-top: 1px solid var(--border-color);
+    padding: 4rem 0 2rem;
+    margin-top: 4rem;
+    background: linear-gradient(0deg, #000, var(--bg-color));
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2.5rem;
+}
+
+.footer-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Botón Neón */
+.neon-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--neon-red);
+    color: var(--neon-red);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    transition: all var(--transition-speed);
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.neon-btn:hover {
+    background: var(--neon-red);
+    color: #000;
+    box-shadow: 0 0 20px var(--neon-red);
+    font-weight: 700;
+}
+
+.social-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.social-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color var(--transition-speed);
+    font-family: var(--font-heading);
+}
+
+.social-link:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.copyright {
+    color: #444;
+    font-size: 0.75rem;
+    margin-top: 2rem;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   Media Queries (Responsive)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        height: auto;
+        padding: 1.5rem 0;
+        gap: 1.5rem;
+    }
+    
+    .main-nav ul {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .intro-text {
+        font-size: 1.2rem;
+    }
+    
+    .rive-highlight {
+        grid-column: auto; /* Vuelve a ocupar 1 columna en móviles */
+    }
+    
+    .rive-placeholder {
+        height: 250px;
+    }
+}

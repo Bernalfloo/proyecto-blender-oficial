@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Minimalista Futurista</title>
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts: Orbitron (Futurista/Tech) y Inter (Limpia/Legible) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Script para renderizar Modelos 3D (Blender) -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+<body>
+
+    <!-- 1. HEADER: Nombre, Avatar y Navegación -->
+    <header class="header">
+        <div class="container header-content">
+            <div class="user-info">
+                <!-- Foto de Perfil -->
+                <img src="assets/perfil.jpg.jpeg" alt="Foto de Alexis" class="avatar-img">
+                <h1 class="user-name">Alexis Josimar Bernal Flores</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#sobre-mi">Sobre Mí</a></li>
+                    <li><a href="#habilidades">Habilidades</a></li>
+                    <li><a href="#proyectos">Proyectos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. SOBRE MÍ: Introducción con tipografía futurista -->
+        <section id="sobre-mi" class="section">
+            <div class="container">
+                <h2 class="section-title">Datos de <span>Usuario</span>...</h2>
+                <div class="intro-text interactive-text" style="font-size: 1.1rem; line-height: 1.8;">
+                    <p class="fade-in"><strong style="color: #fff; font-family: var(--font-heading);">Presentación:</strong> Hola, soy Alexis Josimar Bernal Flores, tengo 20 años y actualmente estoy forjando mi camino profesional como estudiante de Ingeniería en Sistemas Computacionales en el Instituto Tecnológico de Mérida. Me apasiona la tecnología y estoy en constante búsqueda de nuevos desafíos que pongan a prueba mi lógica y creatividad.</p>
+                    <br>
+                    <p class="fade-in" style="transition-delay: 0.1s;"><strong style="color: #fff; font-family: var(--font-heading);">Gustos e Intereses:</strong> Mi tiempo libre se divide entre el desarrollo físico y mental. Practico entrenamiento de calistenia complementado con rutinas de gimnasio en casa, lo que me ayuda a mantener la disciplina. Soy un entusiasta del sonido: disfruto profundamente escuchar música y explorar los aspectos técnicos del audio y los distintos formatos. A nivel personal, valoro enormemente la paz y la tranquilidad. Soy una persona noble, empática y siempre busco generar un ambiente positivo y de colaboración con quienes me rodean.</p>
+                    <br>
+                    <div class="fade-in" style="transition-delay: 0.15s; display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <strong style="color: #fff; font-family: var(--font-heading);">Música:</strong>
+                        <button id="toggle-video-btn" class="neon-btn" style="padding: 0.5rem 1rem; font-size: 0.75rem; margin-top: 0;">Ocultar Reproductor</button>
+                    </div>
+                    <p class="fade-in" style="transition-delay: 0.2s;"><strong style="color: #fff; font-family: var(--font-heading);">Fortalezas:</strong> Mi mayor motor es la ambición de construir algo significativo en la vida. Soy pragmático y enfoco mi energía en actividades que me aporten un valor real, evitando perder el tiempo en lo que no me beneficia. Cuando algo me apasiona, mi disciplina es inquebrantable. Además, poseo una curiosidad insaciable: me encanta investigar y aprender sobre prácticamente cualquier tema, teniendo una afinidad especial por recolectar datos curiosos e interesantes.</p>
+                    <br>
+                    <p class="fade-in" style="transition-delay: 0.3s;"><strong style="color: #fff; font-family: var(--font-heading);">Metas:</strong> Mis objetivos a largo plazo están anclados en la estabilidad y la realización personal. Trabajo duro para, en el futuro, construir una familia feliz y fundar un negocio propio que me brinde total libertad e independencia financiera. Más allá de lo profesional, aspiro a viajar y conocer nuevos lugares con mis seres queridos, tener mi propio automóvil, una casa y, por supuesto, sumar a la familia un perro pastor alemán.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HABILIDADES: Cuadrícula limpia -->
+        <section id="habilidades" class="section">
+            <div class="container">
+                <h2 class="section-title">Matriz de <span>Habilidades</span></h2>
+                <div class="skills-grid">
+                    <div class="skill-item">Facilidad para socializar</div>
+                    <div class="skill-item">Soluciones a problemas difíciles</div>
+                    <div class="skill-item">Gran ética de trabajo</div>
+                    <div class="skill-item">Altamente responsable</div>
+                    <div class="skill-item">Buen criterio y reservado</div>
+                    <div class="skill-item">Fuerte moral</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PROYECTOS: Galería con espacio destacado para Rive -->
+        <section id="proyectos" class="section">
+            <div class="container">
+                <h2 class="section-title">Registro de <span>Proyectos</span></h2>
+                <div class="projects-gallery">
+                    
+                    <!-- Proyecto Destacado (Modelo 3D de Blender) -->
+                    <article class="project-card rive-highlight">
+                        <div class="project-content">
+                            <h3>Modelo 3D Interactivo (Blender)</h3>
+                            <p>Renderizado en tiempo real de modelos 3D. Puedes rotar, acercar y explorar el modelo interactuando directamente con él.</p>
+                            
+                            <!-- Contenedor de Model Viewer -->
+                            <div class="rive-placeholder" style="border: none; padding: 0; background: transparent;">
+                                <model-viewer 
+                                    src="assets/mi_modelo.glb" 
+                                    alt="Mi modelo de Blender" 
+                                    auto-rotate 
+                                    camera-controls 
+                                    shadow-intensity="1"
+                                    style="width: 100%; height: 100%; min-height: 350px; background-color: rgba(255,0,60,0.02); border-radius: 8px;">
+                                </model-viewer>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Otros Proyectos -->
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>Sistema de Gestión Cyber</h3>
+                            <p>Dashboard administrativo con temática oscura, visualización de datos y arquitectura modular.</p>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-content">
+                            <h3>E-commerce Nexo</h3>
+                            <p>Plataforma de ventas con transiciones fluidas, pasarela integrada y diseño ultra minimalista.</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 5. FOOTER: Contacto y Redes -->
+    <footer id="contacto" class="footer">
+        <div class="container footer-content">
+            <div class="contact-info">
+                <h2 class="footer-title">Conexión <span>Establecida</span></h2>
+                <p>¿Listo para el próximo nivel? Iniciemos un nuevo proyecto juntos.</p>
+                <a href="mailto:bvalexisjosimarbernalflores@gmail.com" class="neon-btn">Enviar Correo</a>
+                <p style="margin-top: 1.5rem; color: var(--neon-red); font-family: var(--font-heading); font-size: 1.2rem; letter-spacing: 2px;">Tel: 999 184 1237</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1KYCDqzZmN/" target="_blank" class="social-link">Facebook</a>
+                <a href="https://www.instagram.com/alejbernal18?utm_source=qr&igsh=eXp0NGYxY2dveXk5" target="_blank" class="social-link">Instagram</a>
+            </div>
+            
+            <p class="copyright">&copy; 2026. Todos los derechos reservados bajo protocolo estándar.</p>
+        </div>
+    </footer>
+
+    <!-- Video Flotante con Movimiento -->
+    <div id="floating-video-container" class="floating-video-wrapper">
+        <video id="floating-video" autoplay loop muted controls>
+            <source src="assets/mi_cancion.mp4" type="video/mp4">
+            Tu navegador no soporta el formato de video.
+        </video>
+    </div>
+
+    <!-- Script de Interactividad -->
+    <script>
+        // Efecto de aparición al hacer scroll (Fade-in / Reveal)
+        const faders = document.querySelectorAll('.fade-in, .skill-item, .project-card');
+        
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        // Efecto visual dinámico de ratón sobre las tarjetas (Glow interactivo)
+        document.querySelectorAll('.skill-item, .project-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Lógica del Video Flotante (estilo DVD)
+        const floatingContainer = document.getElementById('floating-video-container');
+        let posX = Math.random() * (window.innerWidth - 300);
+        let posY = Math.random() * (window.innerHeight - 200);
+        let velX = 1.5; // Velocidad X
+        let velY = 1.5; // Velocidad Y
+        let isHovered = false;
+
+        function animateVideo() {
+            if (!isHovered) {
+                const width = floatingContainer.offsetWidth || 280;
+                const height = floatingContainer.offsetHeight || 160;
+
+                posX += velX;
+                posY += velY;
+
+                // Rebote horizontal
+                if (posX + width >= window.innerWidth || posX <= 0) {
+                    velX = -velX;
+                    posX = Math.max(0, Math.min(posX, window.innerWidth - width));
+                }
+                
+                // Rebote vertical
+                if (posY + height >= window.innerHeight || posY <= 0) {
+                    velY = -velY;
+                    posY = Math.max(0, Math.min(posY, window.innerHeight - height));
+                }
+
+                floatingContainer.style.transform = `translate(${posX}px, ${posY}px)`;
+            }
+            requestAnimationFrame(animateVideo);
+        }
+
+        // Iniciar animación y gestionar hover
+        if (floatingContainer) {
+            const vid = document.getElementById('floating-video');
+            const toggleBtn = document.getElementById('toggle-video-btn');
+            
+            // Lógica para el botón de Ocultar/Mostrar en la sección Música
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Evitar desmutear si se clickea el botón accidentalmente
+                    if (floatingContainer.style.display === 'none') {
+                        floatingContainer.style.display = 'block';
+                        toggleBtn.textContent = 'Ocultar Reproductor';
+                        if (vid && vid.paused) vid.play().catch(() => {});
+                    } else {
+                        floatingContainer.style.display = 'none';
+                        toggleBtn.textContent = 'Mostrar Reproductor';
+                        if (vid) vid.pause(); // Pausamos para ahorrar recursos
+                    }
+                });
+            }
+
+            // Detener el movimiento al poner el ratón encima para poder darle clic fácil
+            floatingContainer.addEventListener('mouseenter', () => isHovered = true);
+            floatingContainer.addEventListener('mouseleave', () => isHovered = false);
+
+            // Al hacer clic en CUALQUIER lugar de la página, el video se desmutea automáticamente
+            document.body.addEventListener('click', () => {
+                if (floatingContainer.style.display === 'none') return;
+                if (vid) {
+                    vid.muted = false;
+                    if (vid.paused) vid.play().catch(e => console.log("Esperando interacción..."));
+                }
+            }, { once: true });
+            
+            animateVideo();
+        }
+    </script>
+</body>
+</html>
