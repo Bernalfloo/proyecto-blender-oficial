@@ -13,6 +13,8 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
+    <!-- Partículas de Fondo -->
+    <canvas id="particles-bg"></canvas>
 
     <!-- 1. HEADER: Nombre, Avatar y Navegación -->
     <header class="header">
@@ -27,6 +29,12 @@
                     <li><a href="#sobre-mi">Sobre Mí</a></li>
                     <li><a href="#habilidades">Habilidades</a></li>
                     <li><a href="#proyectos">Proyectos</a></li>
+                    <li class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox-theme">
+                            <input type="checkbox" id="checkbox-theme" />
+                            <span class="slider round"></span>
+                        </label>
+                    </li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
@@ -82,15 +90,27 @@
                             <p>Renderizado en tiempo real de modelos 3D. Puedes rotar, acercar y explorar el modelo interactuando directamente con él.</p>
                             
                             <!-- Contenedor de Model Viewer -->
-                            <div class="rive-placeholder" style="border: none; padding: 0; background: transparent;">
+                            <div class="rive-placeholder" style="border: none; padding: 0; background: transparent; position: relative;">
                                 <model-viewer 
+                                    id="my-blender-model"
                                     src="assets/mi_modelo.glb" 
                                     alt="Mi modelo de Blender" 
                                     auto-rotate 
                                     camera-controls 
                                     shadow-intensity="1"
-                                    style="width: 100%; height: 100%; min-height: 350px; background-color: rgba(255,0,60,0.02); border-radius: 8px;">
+                                    exposure="1"
+                                    style="width: 100%; height: 100%; min-height: 350px; background-color: rgba(255,0,60,0.02); border-radius: 8px;"
+                                    class="floating-model">
                                 </model-viewer>
+                                
+                                <!-- Controles del Modelo (Mobile-Friendly) -->
+                                <div class="model-controls">
+                                    <div class="control-group">
+                                        <label for="light-slider" style="color: var(--text-main);">Luz:</label>
+                                        <input type="range" id="light-slider" min="0.1" max="2.5" step="0.1" value="1">
+                                    </div>
+                                    <button id="color-btn" class="neon-btn control-btn">Cambiar Color</button>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -247,6 +267,114 @@
             
             animateVideo();
         }
+
+        // ==========================================
+        // 5. INTERACTIVIDAD AVANZADA Y RESPONSIVA
+        // ==========================================
+
+        // 5.1 Tema Claro/Oscuro
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            if (currentTheme === 'light-theme') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light-theme');
+            } else {
+                document.body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark-theme');
+            }
+        }
+        toggleSwitch.addEventListener('change', switchTheme);
+
+        // 5.2 Controles del Modelo 3D (Blender)
+        const modelViewer = document.getElementById('my-blender-model');
+        const colorBtn = document.getElementById('color-btn');
+        const lightSlider = document.getElementById('light-slider');
+
+        if (modelViewer && colorBtn && lightSlider) {
+            // Ajustar Exposición (Luz)
+            lightSlider.addEventListener('input', (event) => {
+                modelViewer.exposure = event.target.value;
+            });
+
+            // Cambiar Color del Material
+            colorBtn.addEventListener('click', () => {
+                const materials = modelViewer.model.materials;
+                if (materials && materials.length > 0) {
+                    // Generar color aleatorio
+                    const randomColor = [Math.random(), Math.random(), Math.random(), 1.0];
+                    materials[0].pbrMetallicRoughness.setBaseColorFactor(randomColor);
+                } else {
+                    console.log("El modelo no tiene materiales accesibles o aún no carga.");
+                }
+            });
+        }
+
+        // 5.3 Sistema Nativo de Partículas de Fondo
+        const canvas = document.getElementById('particles-bg');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        // Optimización: menos partículas en móviles
+        let numberOfParticles = window.innerWidth < 768 ? 40 : 100;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            numberOfParticles = window.innerWidth < 768 ? 40 : 100;
+            initParticles();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.005;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = document.body.classList.contains('light-theme') ? 'rgba(0,0,0,0.3)' : 'rgba(255, 0, 60, 0.4)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        resizeCanvas();
+        animateParticles();
     </script>
 </body>
 </html>
